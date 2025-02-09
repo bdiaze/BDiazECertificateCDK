@@ -9,8 +9,10 @@ namespace BDiazECertificate
     {
         public static void Main(string[] args)
         {
+            string appName = System.Environment.GetEnvironmentVariable("APP_NAME")!;
+
             var app = new App();
-            new BDiazECertificateStack(app, "BDiazECertificateStack", new StackProps
+            new BDiazECertificateStack(app, $"Cdk{appName}Certificate", new StackProps
             {
                 // If you don't specify 'env', this stack will be environment-agnostic.
                 // Account/Region-dependent features and context lookups will not work,
