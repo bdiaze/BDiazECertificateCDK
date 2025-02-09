@@ -18,6 +18,8 @@ jobs:
             APP_NAME: ${{ vars.APP_NAME }}
             DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
             ALTERNATIVES_NAMES: ${{ vars.ALTERNATIVES_NAMES }}
+            ACCOUNT_AWS: ${{ vars.ACCOUNT_AWS }}
+            REGION_AWS: ${{ vars.REGION_AWS }}
         steps:
             - name: Checkout Repositorio
               uses: actions/checkout@v4
