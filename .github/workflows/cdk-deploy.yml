@@ -16,10 +16,10 @@ jobs:
                 working-directory: ${{ vars.DIRECTORIO_CDK }}
         env:
             APP_NAME: ${{ vars.APP_NAME }}
-            DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
-            ALTERNATIVES_NAMES: ${{ vars.ALTERNATIVES_NAMES }}
             ACCOUNT_AWS: ${{ vars.ACCOUNT_AWS }}
             REGION_AWS: ${{ vars.REGION_AWS }}
+            DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
+            ALTERNATIVES_NAMES: ${{ vars.ALTERNATIVES_NAMES }}
         steps:
             - name: Checkout Repositorio
               uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
               run: npm install -g aws-cdk
       
             - name: Configure AWS Credentials
-              uses: aws-actions/configure-aws-credentials@v4
+              uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
               with:
                   aws-region: ${{ vars.REGION_AWS }}
                   role-to-assume: ${{ vars.ARN_GITHUB_ROLE }}
