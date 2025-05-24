@@ -7,7 +7,7 @@ on:
       
 jobs:
     deploy-primary-region:
-        name: Deploy to Primary Region - ${{ vars.REGION_AWS }}
+        name: Deploy to Primary Region
         runs-on: ubuntu-latest
         environment: Production
         permissions:
@@ -52,7 +52,7 @@ jobs:
               run: cdk deploy --require-approval never
           
     deploy-secondary-region:
-        name: Deploy to Secondary Region ${{ vars.SECONDARY_REGION_AWS }}
+        name: Deploy to Secondary Region
         runs-on: ubuntu-latest
         environment: Production
         permissions:
