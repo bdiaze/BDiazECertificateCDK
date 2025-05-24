@@ -6,7 +6,8 @@ on:
             - main
       
 jobs:
-    build:
+    deploy-primary-region:
+        name: Deploy to Primary Region - ${{ vars.REGION_AWS }}
         runs-on: ubuntu-latest
         environment: Production
         permissions:
@@ -19,7 +20,6 @@ jobs:
             APP_NAME: ${{ vars.APP_NAME }}
             ACCOUNT_AWS: ${{ vars.ACCOUNT_AWS }}
             REGION_AWS: ${{ vars.REGION_AWS }}
-            SECONDARY_REGION_AWS: ${{ vars.SECONDARY_REGION_AWS }}
             DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
             ALTERNATIVES_NAMES: ${{ vars.ALTERNATIVES_NAMES }}
         steps:
@@ -51,3 +51,47 @@ jobs:
             - name: CDK Deploy
               run: cdk deploy --require-approval never
           
+    deploy-secondary-region:
+        name: Deploy to Secondary Region ${{ vars.SECONDARY_REGION_AWS }}
+        runs-on: ubuntu-latest
+        environment: Production
+        permissions:
+            contents: read
+            id-token: write
+        defaults:
+            run: 
+                working-directory: ${{ vars.DIRECTORIO_CDK }}
+        env:
+            APP_NAME: ${{ vars.APP_NAME }}
+            ACCOUNT_AWS: ${{ vars.ACCOUNT_AWS }}
+            REGION_AWS: ${{ vars.SECONDARY_REGION_AWS }}
+            DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
+            ALTERNATIVES_NAMES: ${{ vars.ALTERNATIVES_NAMES }}
+        steps:
+            - name: Checkout Repositorio
+              uses: actions/checkout@v4
+      
+            - name: Instalar .NET
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: ${{ vars.VERSION_DOTNET }}
+      
+            - name: Instalar Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ vars.VERSION_NODEJS }}
+                  
+            - name: Instalar AWS CDK
+              run: npm install -g aws-cdk
+      
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
+              with:
+                  aws-region: ${{ vars.SECONDARY_REGION_AWS }}
+                  role-to-assume: ${{ vars.ARN_GITHUB_ROLE }}
+                  
+            - name: CDK Synth
+              run: cdk synth
+              
+            - name: CDK Deploy
+              run: cdk deploy --require-approval never
