@@ -64,7 +64,8 @@ El despliegue se lleva a cabo mediante GitHub Actions, para ello se configura la
 | Instalar AWS CDK | `npm install -g aws-cdk` | Se instala aws-cdk con NPM. |
 | Configure AWS Credentials | `aws-actions/configure-aws-credentials` | Se configuran credenciales para despliegue en AWS. |
 | CDK Synth | `cdk synth` | Se sintetiza la aplicación CDK. |
-| CDK Deploy | `cdk deploy --require-approval never` | Se despliega la aplicación CDK. |
+| CDK Diff | `cdk --app cdk.out diff` | Se obtienen las diferencias entre nueva versión y versión desplegada. |
+| CDK Deploy | `cdk --app cdk.out deploy --require-approval never` | Se despliega la aplicación CDK. |
 
 ### Variables y Secretos de Entorno
 
