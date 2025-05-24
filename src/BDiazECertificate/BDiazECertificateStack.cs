@@ -19,7 +19,7 @@ namespace BDiazECertificate
             });
 
             // Se crea certificado SSL para el dominio
-            Certificate certificate = new Certificate(this, $"{appName}Certificate", new CertificateProps {
+            _ = new Certificate(this, $"{appName}Certificate", new CertificateProps {
                 CertificateName = $"{appName}Certificate",
                 DomainName = domainName,
                 SubjectAlternativeNames = alternativesNames,
