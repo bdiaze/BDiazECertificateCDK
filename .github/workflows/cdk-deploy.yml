@@ -49,10 +49,10 @@ jobs:
               run: cdk synth
 
             - name: CDK Diff
-              run: cdk diff
+              run: cdk --app cdk.out diff
               
             - name: CDK Deploy
-              run: cdk deploy --require-approval never
+              run: cdk --app cdk.out deploy --require-approval never
           
     deploy-secondary-region:
         name: Deploy to Secondary Region
